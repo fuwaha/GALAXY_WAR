@@ -151,6 +151,8 @@
     <ClCompile Include="DebugDisplay.cpp" />
     <ClCompile Include="HpBar.cpp" />
     <ClCompile Include="StarField.cpp" />
+    <ClCompile Include="Score.cpp" />
+    <ClCompile Include="ScoreHud.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -171,6 +173,8 @@
     <ClInclude Include="DebugDisplay.h" />
     <ClInclude Include="HpBar.h" />
     <ClInclude Include="StarField.h" />
+    <ClInclude Include="Score.h" />
+    <ClInclude Include="ScoreHud.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

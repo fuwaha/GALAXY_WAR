@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Neon.h"
 #include "DebugDisplay.h"
+#include "Score.h"
 
 void Player::InitializePlayer()
 {
@@ -104,6 +105,8 @@ void Player::DrawPlayer(Camera camera)
 void Player::UpdatePlayer(int stageWidth,int stageHeight ,Camera camera) 
 {
 	if (m_playerState == PlayerState::Dead) return;
+
+	Score::AddSurviveFrame();
 
 	UpdateAim(camera);
 	PlayerControl(stageWidth, stageHeight);

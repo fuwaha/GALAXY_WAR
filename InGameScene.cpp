@@ -4,13 +4,17 @@
 #include "PlayerInput.h"
 #include "Collider.h"
 #include "HpBar.h"
+#include "ScoreHud.h"
 #include "DebugDisplay.h"
+#include "Score.h"
 
 void InGameScene::Initialize()
 {
 	m_player.InitializePlayer();
 	m_stage.InitializeStage();
 	m_camera.InitializeCamera();
+
+	Score::Reset();
 
 	m_enemyPool.resize(MAX_ENEMY_COUNT);
 	m_spawnTimer = 0;
@@ -90,6 +94,7 @@ void InGameScene::Draw()
 	m_camera.FollowCamera(m_player.m_playerObj.position, m_stage.m_width, m_stage.m_height);
 	m_player.DrawPlayer(m_camera);
 
+	//敵の描画
 	for (size_t i = 0; i < m_enemyPool.size(); i++) 
 	{
 		if (m_enemyPool[i].IsActive())
@@ -97,6 +102,7 @@ void InGameScene::Draw()
 	}
 
 	HpBar::Draw(m_player.GetHitPoint().GetHp(), m_player.GetHitPoint().GetMaxHp());
+	ScoreHud::Draw();
 
 	if (DebugDisplay::IsVisible())
 	{

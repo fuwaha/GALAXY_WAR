@@ -3,6 +3,7 @@
 #include "GameScene.h"
 #include "GameSettings.h"
 #include "DebugDisplay.h"
+#include "Score.h"
 
 enum class GameState
 {
@@ -44,6 +45,7 @@ void StateControll()
 	switch (gameState)
 	{
 	case GameState::Init:
+		Score::LoadHighScoreFile();
 		SetState(GameState::TitleInit);
 		break;
 
@@ -78,6 +80,7 @@ void StateControll()
 		break;
 
 	case GameState::InGameEnd:
+		Score::UpdateHighScore();
 		gameScene.ChangeToGameOverScene();
 		SetState(GameState::GameOverInit);
 		break;

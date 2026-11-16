@@ -49,6 +49,9 @@ private:
 	int m_enemyW;
 	int m_enemyH;
 
+	//この敵を倒した時にもらえるスコア
+	static const int DESTROY_SCORE = 100;
+
 	FloatVector2 m_exactPos = { 0.0f,0.0f };
 
 	static constexpr float MOVE_SPEED = 2.0f;

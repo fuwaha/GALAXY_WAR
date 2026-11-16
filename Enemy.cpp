@@ -2,6 +2,7 @@
 #include "common.h"
 #include "Neon.h"
 #include "DebugDisplay.h"
+#include "Score.h"
 #include <DxLib.h>
 #include <cmath>
 
@@ -145,6 +146,7 @@ void Enemy::TakeDamage(int amount)
 	if (m_hitPoint.IsDead())
 	{
 		m_enemyState = EnemyState::Dead;
+		Score::AddScore(DESTROY_SCORE);
 	}
 	else
 	{
