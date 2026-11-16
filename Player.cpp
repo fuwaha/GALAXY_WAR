@@ -52,9 +52,9 @@ void Player::DrawPlayer(Camera camera)
 {
 	if (DebugDisplay::IsVisible())
 	{
-		DrawFormatString(20, 20, GetColor(255, 255, 0), L"PlayerPos X = %d Y = %d", m_playerObj.position.x, m_playerObj.position.y);
-		DrawFormatString(20, 100, GetColor(255, 255, 0), L"PlayerState = %s", GetStateName());
-		DrawFormatString(20, 140, GetColor(255, 255, 0), L"HP = %d", m_hitPoint.GetHp());
+		DrawFormatString(20, 60, GetColor(255, 255, 0), L"PlayerPos X = %d Y = %d", m_playerObj.position.x, m_playerObj.position.y);
+		DrawFormatString(20, 140, GetColor(255, 255, 0), L"PlayerState = %s", GetStateName());
+		DrawFormatString(20, 180, GetColor(255, 255, 0), L"HP = %d", m_hitPoint.GetHp());
 	}
 
 	if (m_playerState == PlayerState::Dead) return;

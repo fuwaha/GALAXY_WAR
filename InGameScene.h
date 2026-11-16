@@ -23,6 +23,7 @@ private:
 
 	std::vector<Enemy> m_enemyPool;       //敵をプールする
 	static const int MAX_ENEMY_COUNT = 5; //ステージに出現する最大敵数
+	int m_activeEnemyCount = 0;             //アクティブ状態の敵の数(今のとこデバッグ用)
 
 	int m_spawnTimer = 0;                                            //敵が出現するインターバル用のタイマー
 	static const int SPAWN_SECONDS = 5;                              //インターバル(秒)

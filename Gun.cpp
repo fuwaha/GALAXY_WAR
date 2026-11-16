@@ -42,16 +42,6 @@ void Gun::Shoot(FloatVector2 aimDirection, Vector2 shootPos)
 			m_magazine[i].direction.x = aimDirection.x;
 			m_magazine[i].direction.y = aimDirection.y;
 
-			if (DebugDisplay::IsVisible())
-				DrawFormatString(
-				20,
-				600,
-				GetColor(255, 255, 255),
-				L"dir=(%.2f, %.2f)",
-				m_magazine[0].direction.x,
-				m_magazine[0].direction.y
-			);
-
 			break;
 		}
 	}

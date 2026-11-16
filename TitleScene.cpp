@@ -38,9 +38,6 @@ void TitleScene::Draw()
 	const TCHAR* guide = L"WASD : MOVE    MOUSE : AIM    L-CLICK : SHOOT    ESC : QUIT";
 	int guideWidth = GetDrawStringWidth(guide, lstrlen(guide));
 	DrawString((GameSettings::SCREEN_WIDTH - guideWidth) / 2, ToScreenY(GUIDE_Y_RATE), guide, Neon::ToColor(Neon::TEXT_DIM));
-
-	if (DebugDisplay::IsVisible())
-		DrawFormatString(20, 20, GetColor(255, 255, 0), L"TitleScene");
 }
 
 // 背景(暗い床に、下へゆっくり流れる星空)

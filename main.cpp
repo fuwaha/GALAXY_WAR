@@ -39,6 +39,8 @@ GameState GetState()
 
 void StateControll()
 {
+
+
 	switch (gameState)
 	{
 	case GameState::Init:
@@ -120,6 +122,16 @@ void StateControll()
 
 	case GameState::End:
 		break;
+	}
+
+	if (DebugDisplay::IsVisible())
+	{
+		if (gameState == GameState::TitleDsp)
+			DrawFormatString(20, 20, GetColor(255, 255, 0), L"TitleScene");
+		if (gameState == GameState::InGameDsp)
+			DrawFormatString(20, 20, GetColor(255, 255, 0), L"InGameScene");
+		if (gameState == GameState::GameOverDsp)
+			DrawFormatString(20, 20, GetColor(255, 255, 0), L"GameOverScene");
 	}
 }
 

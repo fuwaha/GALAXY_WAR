@@ -4,6 +4,7 @@
 #include "PlayerInput.h"
 #include "Collider.h"
 #include "HpBar.h"
+#include "DebugDisplay.h"
 
 void InGameScene::Initialize()
 {
@@ -68,12 +69,17 @@ void InGameScene::Update()
 	}
 	m_spawnTimer -= 1;
 
+	int activeEnemyCount = 0;
 	//敵の移動
 	for (size_t i = 0; i < m_enemyPool.size(); i++) 
 	{
 		if (m_enemyPool[i].IsActive())
+		{
 			m_enemyPool[i].UpdateEnemy(m_stage.m_width, m_stage.m_height, m_player.m_playerObj.position);
+			activeEnemyCount++;
+		}
 	}
+	m_activeEnemyCount = activeEnemyCount;
 }
 
 void InGameScene::Draw()
@@ -91,6 +97,11 @@ void InGameScene::Draw()
 	}
 
 	HpBar::Draw(m_player.GetHitPoint().GetHp(), m_player.GetHitPoint().GetMaxHp());
+
+	if (DebugDisplay::IsVisible())
+	{
+		DrawFormatString(20, 220, GetColor(255, 255, 0), L"ActiveEnemy:%d", m_activeEnemyCount);
+	}
 }
 
 bool InGameScene::IsInGameEnd() const 

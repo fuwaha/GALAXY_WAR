@@ -35,9 +35,6 @@ void GameOverScene::Draw()
 	// 操作の案内
 	DrawCenterString(ToScreenY(RETRY_Y_RATE), L"ENTER : RETRY", Neon::CYAN, m_textFontHandle);
 	DrawCenterString(ToScreenY(TITLE_BACK_Y_RATE), L"T : TITLE", Neon::CYAN, m_textFontHandle);
-
-	if (DebugDisplay::IsVisible())
-		DrawFormatString(20, 20, GetColor(255, 255, 0), L"GameOverScene");
 }
 
 // 背景(暗い床に止まった星空+うっすら赤い幕)

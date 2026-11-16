@@ -49,11 +49,6 @@ void Enemy::InitializeEnemy(Vector2 spawnPos)
 
 void Enemy::DrawEnemy(Camera camera) 
 {
-	if (DebugDisplay::IsVisible())
-	{
-		DrawFormatString(20, 180, GetColor(255, 255, 0), L"EnemyHP:%d", m_hitPoint.GetHp());
-	}
-
 	m_gun.DrawBullet(camera, Neon::RED);
 
 	// 死んでいたら描かない
