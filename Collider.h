@@ -5,6 +5,6 @@ class Collider
 {
 public:
 	// 2つの円が重なっていたら true
-	static bool CheckCircleHit(FloatVector2 posA, float radiusA, FloatVector2 posB, float radiusB);
+	static bool CheckCircleHit(Vector2 posA, float radiusA, Vector2 posB, float radiusB);
 };
 

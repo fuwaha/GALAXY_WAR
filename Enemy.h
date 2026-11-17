@@ -19,7 +19,7 @@ public:
 	EnemyState GetEnemyState() const;
 	void SetEnemyState(EnemyState state);
 
-	FloatVector2 GetPosition() const;
+	Vector2 GetPosition() const;
 	float GetRadius() const;
 
 	void InitializeEnemy(Vector2 spawnPos);
@@ -27,7 +27,7 @@ public:
 	void DrawEnemy(Camera camera);
 	void UpdateEnemy(int stageWidth, int stageHeight, Vector2 playerPos);
 
-	bool CheckBulletHit(FloatVector2 targetPos, float targetRadius);
+	bool CheckBulletHit(Vector2 targetPos, float targetRadius);
 
 	void TakeDamage(int amount);
 
@@ -42,8 +42,8 @@ private:
 	bool m_isActive = false;
 
 	//位置
-	int m_enemyPosX;
-	int m_enemyPosY;
+	float m_enemyPosX;
+	float m_enemyPosY;
 
 	//大きさ(あたり判定用、表示に使う大きさはDRAW_RADIUS)
 	int m_enemyW;
@@ -52,7 +52,7 @@ private:
 	//この敵を倒した時にもらえるスコア
 	static const int DESTROY_SCORE = 100;
 
-	FloatVector2 m_exactPos = { 0.0f,0.0f };
+	Vector2 m_exactPos = { 0.0f,0.0f };
 
 	static constexpr float MOVE_SPEED = 2.0f;
 

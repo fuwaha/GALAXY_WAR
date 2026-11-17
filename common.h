@@ -3,12 +3,6 @@
 
 struct Vector2
 {
-	int x;
-	int y;
-};
-
-struct FloatVector2 
-{
 	float x;
 	float y;
 };
@@ -23,8 +17,8 @@ struct GameObject
 
 struct Bullet
 {
-	FloatVector2 position;
-	FloatVector2 direction;
+	Vector2 position;
+	Vector2 direction;
 
 	float radius;
 
@@ -32,9 +26,9 @@ struct Bullet
 	bool isActive;
 };
 
-inline FloatVector2 Direction(FloatVector2 from, FloatVector2 to)
+inline Vector2 Direction(Vector2 from, Vector2 to)
 {
-	FloatVector2 dir = { to.x - from.x, to.y - from.y };
+	Vector2 dir = { to.x - from.x, to.y - from.y };
 	float dis = sqrtf(dir.x * dir.x + dir.y * dir.y);
 
 	if (dis > 0.001f)
@@ -49,14 +43,14 @@ inline FloatVector2 Direction(FloatVector2 from, FloatVector2 to)
 	return { 0,0 };
 }
 
-inline float Distance(FloatVector2 from, FloatVector2 to)
+inline float Distance(Vector2 from, Vector2 to)
 {
-	FloatVector2 dir = { to.x - from.x, to.y - from.y };
+	Vector2 dir = { to.x - from.x, to.y - from.y };
 	return sqrtf(dir.x * dir.x + dir.y * dir.y);
 }
 
-inline float Angle(FloatVector2 from, FloatVector2 to)
+inline float Angle(Vector2 from, Vector2 to)
 {
-	FloatVector2 dir = { to.x - from.x, to.y - from.y };
+	Vector2 dir = { to.x - from.x, to.y - from.y };
 	return atan2f(dir.y, dir.x);
 }

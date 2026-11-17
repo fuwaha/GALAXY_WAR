@@ -16,7 +16,7 @@ void Gun::InitializeGun(int bulletCount)
 	m_magazine.assign(bulletCount, m_bullet);
 }
 
-void Gun::Shoot(FloatVector2 aimDirection, Vector2 shootPos)
+void Gun::Shoot(Vector2 aimDirection, Vector2 shootPos)
 {
 	for (size_t i = 0; i < m_magazine.size(); i++) 
 	{
@@ -47,7 +47,7 @@ void Gun::Shoot(FloatVector2 aimDirection, Vector2 shootPos)
 	}
 }
 
-bool Gun::CheckHit(FloatVector2 targetPos, float targetRadius)
+bool Gun::CheckHit(Vector2 targetPos, float targetRadius)
 {
 	for (size_t i = 0; i < m_magazine.size(); i++)
 	{

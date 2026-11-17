@@ -61,10 +61,10 @@ void InGameScene::Update()
 			if (m_enemyPool[i].IsActive()) continue;
 
 			float spawnAngle = GetRand(359) * DX_PI_F / 180.0f;	// 0〜359度をラジアンに
-			int spawnPosX = 
+			float spawnPosX = 
 				m_player.m_playerObj.position.x + 
 				static_cast<int>(cosf(spawnAngle) * SPAWN_DISTANCE);
-			int spawnPosY = 
+			float spawnPosY = 
 				m_player.m_playerObj.position.y + 
 				static_cast<int>(sinf(spawnAngle) * SPAWN_DISTANCE);
 

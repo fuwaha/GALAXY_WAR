@@ -24,7 +24,7 @@ public:
 	PlayerState GetPlayerState() const;
 	void SetPlayerState(PlayerState state);
 
-	FloatVector2 GetPosition() const;
+	Vector2 GetPosition() const;
 	float GetRadius() const;
 
 	void InitializePlayer();
@@ -32,15 +32,15 @@ public:
 	void DrawPlayer(Camera camera);
 	void UpdatePlayer(int stageWidth, int stageHeight, Camera camera);
 
-	bool CheckBulletHit(FloatVector2 targetPos, float targetRadius);
+	bool CheckBulletHit(Vector2 targetPos, float targetRadius);
 
 	void TakeDamage(int amount);
 
 	int GetMoveSpeed();
 
 private:
-	int m_playerPosX;
-	int m_playerPosY;
+	float m_playerPosX;
+	float m_playerPosY;
 	int m_playerW;
 	int m_playerH;
 
@@ -49,7 +49,7 @@ private:
 	void UpdateAim(Camera camera);
 	void PlayerControl(int stageWidth, int stageHeight);
 
-	FloatVector2 m_aimDirection = { 0,0 };
+	Vector2 m_aimDirection = { 0,0 };
 	float m_angle = 0;
 
 	HitPoint m_hitPoint;

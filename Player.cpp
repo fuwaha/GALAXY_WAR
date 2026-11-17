@@ -36,9 +36,9 @@ void Player::SetPlayerState(PlayerState state)
 	m_playerState = state;
 };
 
-FloatVector2 Player::GetPosition() const 
+Vector2 Player::GetPosition() const 
 {
-	FloatVector2 position =
+	Vector2 position =
 	{ static_cast<float>(m_playerObj.position.x),static_cast<float>(m_playerObj.position.y) };
 
 	return position;
@@ -53,7 +53,7 @@ void Player::DrawPlayer(Camera camera)
 {
 	if (DebugDisplay::IsVisible())
 	{
-		DrawFormatString(20, 60, GetColor(255, 255, 0), L"PlayerPos X = %d Y = %d", m_playerObj.position.x, m_playerObj.position.y);
+		DrawFormatString(20, 60, GetColor(255, 255, 0), L"PlayerPos X = %.0f Y = %.0f", m_playerObj.position.x, m_playerObj.position.y);
 		DrawFormatString(20, 140, GetColor(255, 255, 0), L"PlayerState = %s", GetStateName());
 		DrawFormatString(20, 180, GetColor(255, 255, 0), L"HP = %d", m_hitPoint.GetHp());
 	}
@@ -132,7 +132,7 @@ void Player::UpdatePlayer(int stageWidth,int stageHeight ,Camera camera)
 	}
 }
 
-bool Player::CheckBulletHit(FloatVector2 targetPos, float targetRadius) 
+bool Player::CheckBulletHit(Vector2 targetPos, float targetRadius) 
 {
 	return m_gun.CheckHit(targetPos, targetRadius);
 }
@@ -151,8 +151,8 @@ void Player::PlayerControl(int stageWidth, int stageHeight)
 	if (PlayerInput::GetInput(PlayerInput::Input::Down))  m_playerObj.position.y += MOVE_SPEED;
 
 	// ステージの外に出ないように範囲内に収める
-	m_playerObj.position.x = std::clamp(m_playerObj.position.x, 0, stageWidth - m_playerObj.width);
-	m_playerObj.position.y = std::clamp(m_playerObj.position.y, 0, stageHeight - m_playerObj.height);
+	m_playerObj.position.x = std::clamp(m_playerObj.position.x, 0.0f, static_cast<float>(stageWidth - m_playerObj.width));
+	m_playerObj.position.y = std::clamp(m_playerObj.position.y, 0.0f, static_cast<float>(stageHeight - m_playerObj.height));
 }
 
 void Player::UpdateAim(Camera camera) 
@@ -160,8 +160,8 @@ void Player::UpdateAim(Camera camera)
 	Vector2 mouse = PlayerInput::GetMousePos();
 
 	//マウスの座標をワールド座標に変換
-	int worldMouseX = mouse.x + camera.m_x;
-	int worldMouseY = mouse.y + camera.m_y;
+	float worldMouseX = mouse.x + camera.m_x;
+	float worldMouseY = mouse.y + camera.m_y;
 
 	//プレイヤーからマウスへの方向ベクトルを計算
 	//  (プレイヤーの向き計算に使用、弾の発射方向計算にも使うためgunにもそのまま使用)

@@ -33,7 +33,7 @@ Vector2 PlayerInput::GetMousePos()
 	int y;
 	GetMousePoint(&x, &y);
 
-	return Vector2(x, y);
+	return Vector2(static_cast<float>(x), static_cast<float>(y));
 }
 
 bool PlayerInput::GetMouseClick(Input input)

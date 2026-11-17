@@ -8,8 +8,8 @@ class Gun
 {
 public:
 	void InitializeGun(int bulletCount);
-	void Shoot(FloatVector2 aimDirection, Vector2 vector2);
-	bool CheckHit(FloatVector2 targetPos, float targetRadius);
+	void Shoot(Vector2 aimDirection, Vector2 vector2);
+	bool CheckHit(Vector2 targetPos, float targetRadius);
 	void DrawBullet(Camera camera ,NeonColor color);
 	void UpdateBullet(int stageWidth, int stageHeight);
 	void DrawSight();

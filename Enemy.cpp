@@ -16,7 +16,7 @@ void Enemy::SetEnemyState(EnemyState state)
 	m_enemyState = state;
 }
 
-FloatVector2 Enemy::GetPosition() const 
+Vector2 Enemy::GetPosition() const 
 {
 	return m_exactPos;
 }
@@ -107,7 +107,7 @@ void Enemy::UpdateEnemy(int stageWidth, int stageHeight, Vector2 playerPos)
 		m_exactPos.x += dx / length * MOVE_SPEED;
 		m_exactPos.y += dy / length * MOVE_SPEED;
 
-		m_enemyObj.position = { static_cast<int>(m_exactPos.x),static_cast<int>(m_exactPos.y) };
+		m_enemyObj.position = m_exactPos;
 	}
 
 	switch (m_enemyState)
@@ -134,7 +134,7 @@ void Enemy::UpdateEnemy(int stageWidth, int stageHeight, Vector2 playerPos)
 	}
 }
 
-bool Enemy::CheckBulletHit(FloatVector2 targetPos, float targetRadius)
+bool Enemy::CheckBulletHit(Vector2 targetPos, float targetRadius)
 {
 	return m_gun.CheckHit(targetPos, targetRadius);
 }

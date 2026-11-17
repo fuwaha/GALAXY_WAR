@@ -13,8 +13,8 @@ public:
 	int m_height;
 
 private:
-	int m_stageX;
-	int m_stageY;
+	float m_stageX;
+	float m_stageY;
 
 	StarField m_starField;	// 床の上に描く星空
 };

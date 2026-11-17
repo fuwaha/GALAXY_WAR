@@ -36,5 +36,5 @@ void Stage::DrawStage(Camera camera)
 	Neon::DrawGlowLine(left, bottom, left, top, Neon::MAGENTA, 3.0f);
 
 	if (DebugDisplay::IsVisible())
-		DrawFormatString(20, 100, GetColor(255, 255, 0), L"StagePos X = %d Y = %d Field = %d", m_field.position.x - camera.m_x, m_field.position.y - camera.m_y, GameSettings::SCREEN_WIDTH + m_field.width);
+		DrawFormatString(20, 100, GetColor(255, 255, 0), L"StagePos X = %.0f Y = %.0f Field = %d", m_field.position.x - camera.m_x, m_field.position.y - camera.m_y, GameSettings::SCREEN_WIDTH + m_field.width);
 }
