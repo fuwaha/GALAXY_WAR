@@ -160,21 +160,18 @@ void Player::UpdateAim(Camera camera)
 	Vector2 mouse = PlayerInput::GetMousePos();
 
 	//マウスの座標をワールド座標に変換
-	float worldMouseX = mouse.x + camera.m_x;
-	float worldMouseY = mouse.y + camera.m_y;
+	Vector2 worldMousePos =
+	{
+		mouse.x + camera.m_x,
+		mouse.y + camera.m_y
+	};
 
 	//プレイヤーからマウスへの方向ベクトルを計算
-	//  (プレイヤーの向き計算に使用、弾の発射方向計算にも使うためgunにもそのまま使用)
-	m_aimDirection.x =
-		worldMouseX -
-		(m_playerObj.position.x);
+	//  (プレイヤーの向きと弾の発射方向に使用)
+	m_aimDirection = GetDirection(m_playerObj.position,worldMousePos);
 
-	m_aimDirection.y =
-		worldMouseY -
-		(m_playerObj.position.y);
-
-	//方向ベクトルから角度を計算
-	m_angle = atan2f(m_aimDirection.y, m_aimDirection.x);
+	//角度を計算
+	m_angle = GetAngle(m_playerObj.position, worldMousePos);
 }
 
 void Player::TakeDamage(int amount) 

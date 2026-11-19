@@ -26,18 +26,11 @@ void Gun::Shoot(Vector2 aimDirection, Vector2 shootPos)
 			m_magazine[i].position.x = shootPos.x;
 			m_magazine[i].position.y = shootPos.y;
 
-			//発射方向計算
-			float length =
-				sqrtf(aimDirection.x * aimDirection.x + aimDirection.y * aimDirection.y);
-
-			if (length <= 0.001f)
+			if (aimDirection.x == 0.0f &&
+				aimDirection.y == 0.0f)
 				return;
 
 			m_magazine[i].isActive = true;
-
-			//正規化
-			aimDirection.x /= length;
-			aimDirection.y /= length;
 
 			m_magazine[i].direction.x = aimDirection.x;
 			m_magazine[i].direction.y = aimDirection.y;

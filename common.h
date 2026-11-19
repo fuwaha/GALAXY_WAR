@@ -26,7 +26,7 @@ struct Bullet
 	bool isActive;
 };
 
-inline Vector2 Direction(Vector2 from, Vector2 to)
+inline Vector2 GetDirection(Vector2 from, Vector2 to)
 {
 	Vector2 dir = { to.x - from.x, to.y - from.y };
 	float dis = sqrtf(dir.x * dir.x + dir.y * dir.y);
@@ -43,13 +43,13 @@ inline Vector2 Direction(Vector2 from, Vector2 to)
 	return { 0,0 };
 }
 
-inline float Distance(Vector2 from, Vector2 to)
+inline float GetDistance(Vector2 from, Vector2 to)
 {
 	Vector2 dir = { to.x - from.x, to.y - from.y };
 	return sqrtf(dir.x * dir.x + dir.y * dir.y);
 }
 
-inline float Angle(Vector2 from, Vector2 to)
+inline float GetAngle(Vector2 from, Vector2 to)
 {
 	Vector2 dir = { to.x - from.x, to.y - from.y };
 	return atan2f(dir.y, dir.x);

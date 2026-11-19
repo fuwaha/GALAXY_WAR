@@ -18,34 +18,31 @@ void Enemy::SetEnemyState(EnemyState state)
 
 Vector2 Enemy::GetPosition() const 
 {
-	return m_exactPos;
+	return m_enemyObj.position;
 }
 
 float Enemy::GetRadius() const 
 {
-	return DRAW_RADIUS;
+	return m_param.drawRadius;
 }
 
-void Enemy::InitializeEnemy(Vector2 spawnPos) 
+void Enemy::InitializeEnemy(Vector2 spawnPos,EnemyType enemyType) 
 {
-	m_isActive = false;
+	m_enemyType = enemyType;
+	m_param = ENEMY_LIST[static_cast<int>(enemyType)];
 
-	m_enemyPosX = spawnPos.x;
-	m_enemyPosY = spawnPos.y;
-	m_enemyW = static_cast<int>(DRAW_RADIUS * 2);
-	m_enemyH = static_cast<int>(DRAW_RADIUS * 2);
+	m_enemyW = static_cast<int>(m_param.drawRadius * 2);
+	m_enemyH = static_cast<int>(m_param.drawRadius * 2);
 
-	m_enemyObj = { { m_enemyPosX,m_enemyPosY },m_enemyW,m_enemyH};
-
-	m_exactPos = { static_cast<float>(m_enemyPosX), static_cast<float>(m_enemyPosY) };
+	m_enemyObj = { spawnPos,m_enemyW,m_enemyH };
 
 	m_enemyState = EnemyState::Alive;
 
 	m_flashTimer = 0;
 	m_shootTimer = 0;
 
-	m_hitPoint.Initialize(MAX_HP);
-	m_gun.InitializeGun(BULLET_COUNT);
+	m_hitPoint.Initialize(m_param.maxHp);
+	m_gun.InitializeGun(m_param.bulletCount);
 }
 
 void Enemy::DrawEnemy(Camera camera) 
@@ -85,39 +82,34 @@ void Enemy::DrawEnemy(Camera camera)
 
 }
 
-void Enemy::UpdateEnemy(int stageWidth, int stageHeight, Vector2 playerPos) 
+void Enemy::UpdateEnemy(int stageWidth, int stageHeight, Vector2 playerPos)
 {
 	m_gun.UpdateBullet(stageWidth, stageHeight);
 
-	if (m_enemyState == EnemyState::Dead) 
+	if (m_enemyState == EnemyState::Dead)
 	{
 		m_isActive = false;
 		return;
 	}
 
 	// プレイヤーの方向の角度を計算(目の向きに使う)
-	float dx = static_cast<float>(playerPos.x - m_enemyObj.position.x);
-	float dy = static_cast<float>(playerPos.y - m_enemyObj.position.y);
-	m_angle = atan2f(dy, dx);
+	m_angle = GetAngle(m_enemyObj.position, playerPos);
+	Vector2 dir = GetDirection(m_enemyObj.position, playerPos);
 
-	float length = sqrtf(dx * dx + dy * dy);
-
-	if (length > 0.001f)	// 重なってたら0で割っちゃうので何もしない
+	m_enemyObj.position =
 	{
-		m_exactPos.x += dx / length * MOVE_SPEED;
-		m_exactPos.y += dy / length * MOVE_SPEED;
-
-		m_enemyObj.position = m_exactPos;
-	}
+		m_enemyObj.position.x + dir.x * m_param.moveSpeed,
+		m_enemyObj.position.y + dir.y * m_param.moveSpeed
+	};
 
 	switch (m_enemyState)
 	{
 	case EnemyState::Alive:
 	{
-		if (m_shootTimer <= 0) 
+		if (m_shootTimer <= 0)
 		{
-			m_gun.Shoot({ dx,dy }, m_enemyObj.position);
-			m_shootTimer = SHOOT_TIME;
+			m_gun.Shoot(dir, m_enemyObj.position);
+			m_shootTimer = static_cast<int>(m_param.shootInterval) * GameSettings::FPS;
 		}
 
 		m_shootTimer -= 1;
@@ -146,7 +138,7 @@ void Enemy::TakeDamage(int amount)
 	if (m_hitPoint.IsDead())
 	{
 		m_enemyState = EnemyState::Dead;
-		Score::AddScore(DESTROY_SCORE);
+		Score::AddScore(m_param.destroyScore);
 	}
 	else
 	{

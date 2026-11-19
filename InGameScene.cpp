@@ -68,7 +68,7 @@ void InGameScene::Update()
 				m_player.m_playerObj.position.y + 
 				static_cast<int>(sinf(spawnAngle) * SPAWN_DISTANCE);
 
-			m_enemyPool[i].InitializeEnemy({ spawnPosX,spawnPosY });
+			m_enemyPool[i].InitializeEnemy({ spawnPosX,spawnPosY },Enemy::EnemyType::Common);
 			m_enemyPool[i].Activate();
 			break;
 		}

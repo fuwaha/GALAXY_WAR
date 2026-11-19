@@ -5,6 +5,7 @@
 #include "HitPoint.h"
 #include "GameSettings.h"
 #include "Gun.h"
+#include "Neon.h"
 
 class Enemy
 {
@@ -16,13 +17,21 @@ public:
 		Damage
 	};
 
+	enum class EnemyType
+	{
+		Common,
+		Tank,
+		Fast,
+		Splash
+	};
+
 	EnemyState GetEnemyState() const;
 	void SetEnemyState(EnemyState state);
 
 	Vector2 GetPosition() const;
 	float GetRadius() const;
 
-	void InitializeEnemy(Vector2 spawnPos);
+	void InitializeEnemy(Vector2 spawnPos,EnemyType enemyType);
 
 	void DrawEnemy(Camera camera);
 	void UpdateEnemy(int stageWidth, int stageHeight, Vector2 playerPos);
@@ -39,20 +48,75 @@ public:
 private:
 	GameObject m_enemyObj;
 
+	struct EnemyParam
+	{
+		int maxHp;
+		float moveSpeed;
+		float drawRadius;
+		int destroyScore;
+		NeonColor color;
+		float shootInterval; //秒
+		int bulletCount;
+	};
+
+	EnemyType m_enemyType = EnemyType::Common;
+	EnemyParam m_param = { 0,0,0,0,Neon::BLUE,0,0 };
+
+	static constexpr EnemyParam ENEMY_LIST[] =
+	{
+		//common
+		{
+			2,
+			2.0f,
+			32.0f,
+			100,
+			Neon::ORANGE,
+			1.0f,
+			3
+		},
+
+		//tank
+		{
+			5,
+			1.0f,
+			48.0f,
+			300,
+			Neon::RED,
+			4.0f,
+			10
+		},
+
+		//fast
+		{
+			1,
+			4.0f,
+			16.0f,
+			150,
+			Neon::BLUE,
+			0,
+			0
+		},
+
+		//splash
+		{
+			2,
+			2.0f,
+			32.0f,
+			400,
+			Neon::ORANGE,
+			5.0f,
+			60
+		}
+	};
+
 	bool m_isActive = false;
 
-	//位置
-	float m_enemyPosX;
-	float m_enemyPosY;
-
-	//大きさ(あたり判定用、表示に使う大きさはDRAW_RADIUS)
+	//大きさ(あたり判定用、表示に使う大きさはdrawRadius)
 	int m_enemyW;
 	int m_enemyH;
 
 	//この敵を倒した時にもらえるスコア
 	static const int DESTROY_SCORE = 100;
-
-	Vector2 m_exactPos = { 0.0f,0.0f };
 
 	static constexpr float MOVE_SPEED = 2.0f;
 
@@ -79,4 +143,5 @@ private:
 	static constexpr float EYE_DISTANCE = 16.0f;	// 中心から目までの距離
 	static constexpr float EYE_RADIUS = 4.0f;		// 目の半径
 	static constexpr float EYE_THICKNESS = 4.0f;	// 目の線の太さ(半径と同じくらいにすると塗りつぶした点に見える)
+
 };

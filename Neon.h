@@ -15,10 +15,11 @@ class Neon
 {
 public:
 	// ゲーム全体で使う色
-	static constexpr NeonColor CYAN = { 0, 255, 255 };			// プレイヤー・タイトル
-	static constexpr NeonColor MAGENTA = { 255, 60, 220 };		// 弾・照準・ステージの枠
-	static constexpr NeonColor RED = { 255,0,0 };               // ダメージ表現
-	static constexpr NeonColor ORANGE = { 255, 140, 0 };        // 敵
+	static constexpr NeonColor CYAN = { 0, 255, 255 };			
+	static constexpr NeonColor MAGENTA = { 255, 60, 220 };		
+	static constexpr NeonColor RED = { 255,0,0 };               
+	static constexpr NeonColor BLUE = { 60, 140, 255 };
+	static constexpr NeonColor ORANGE = { 255, 140, 0 };        
 	static constexpr NeonColor YELLOW = { 255,220,0 };
 	static constexpr NeonColor WHITE = { 255,255,255 };
 	static constexpr NeonColor FLOOR = { 8, 10, 24 };			// 床・背景
