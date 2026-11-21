@@ -42,7 +42,7 @@ void Enemy::InitializeEnemy(Vector2 spawnPos,EnemyType enemyType)
 	m_shootTimer = 0;
 
 	m_hitPoint.Initialize(m_param.maxHp);
-	m_gun.InitializeGun(m_param.bulletCount);
+	m_gun.InitializeGun(m_param.bulletCount,Gun::ShotPettern::Single);
 }
 
 void Enemy::DrawEnemy(Camera camera) 
@@ -109,7 +109,7 @@ void Enemy::UpdateEnemy(int stageWidth, int stageHeight, Vector2 playerPos)
 		if (m_shootTimer <= 0)
 		{
 			m_gun.Shoot(dir, m_enemyObj.position);
-			m_shootTimer = static_cast<int>(m_param.shootInterval) * GameSettings::FPS;
+			m_shootTimer = static_cast<int>(GameSettings::FPS * m_param.shootInterval);
 		}
 
 		m_shootTimer -= 1;

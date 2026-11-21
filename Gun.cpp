@@ -8,8 +8,10 @@
 #include "DebugDisplay.h"
 #include "Collider.h"
 
-void Gun::InitializeGun(int bulletCount)
+void Gun::InitializeGun(int bulletCount,ShotPettern shotPettern)
 {
+	m_pettern = shotPettern;
+
 	m_gun = { {0,0} ,96,96};
 	m_bullet = { {0,0},{0,0} ,BULLET_RADIUS,BULLET_SPEED,false };
 
@@ -18,25 +20,14 @@ void Gun::InitializeGun(int bulletCount)
 
 void Gun::Shoot(Vector2 aimDirection, Vector2 shootPos)
 {
-	for (size_t i = 0; i < m_magazine.size(); i++) 
+	switch (m_pettern)
 	{
-		if (!m_magazine[i].isActive)
-		{
-			//マガジンの中のアクティブになってる弾に現在の位置を設定
-			m_magazine[i].position.x = shootPos.x;
-			m_magazine[i].position.y = shootPos.y;
-
-			if (aimDirection.x == 0.0f &&
-				aimDirection.y == 0.0f)
-				return;
-
-			m_magazine[i].isActive = true;
-
-			m_magazine[i].direction.x = aimDirection.x;
-			m_magazine[i].direction.y = aimDirection.y;
-
-			break;
-		}
+	case Gun::ShotPettern::Single:
+		ShootOne(aimDirection, shootPos);
+		break;
+	case Gun::ShotPettern::Radial:
+		ShootRadial(aimDirection, shootPos);
+		break;
 	}
 }
 
@@ -60,12 +51,11 @@ bool Gun::CheckHit(Vector2 targetPos, float targetRadius)
 
 }
 
-void Gun::UpdateBullet(int stageWidth,int stageHeight) 
+void Gun::UpdateBullet(int stageWidth, int stageHeight)
 {
-	for (size_t i = 0; i < m_magazine.size(); i++)
+	for (int i = 0; i < m_magazine.size(); i++)
 	{
-		if (!m_magazine[i].isActive)
-			continue;
+		if (!m_magazine[i].isActive) continue;
 
 		//弾移動
 		m_magazine[i].position.x +=
@@ -87,10 +77,9 @@ void Gun::UpdateBullet(int stageWidth,int stageHeight)
 
 void Gun::DrawBullet(Camera camera, NeonColor color)
 {
-	for (size_t i = 0; i < m_magazine.size(); i++)
+	for (int i = 0; i < m_magazine.size(); i++)
 	{
-		if (!m_magazine[i].isActive)
-			continue;
+		if (!m_magazine[i].isActive) continue;
 
 		//弾描画(進行方向の後ろに尾を引く光の線)
 		float headX = m_magazine[i].position.x - camera.m_x;
@@ -118,4 +107,52 @@ void Gun::DrawSight()
 	Neon::DrawGlowLine(centerX, centerY - radius - 8.0f, centerX, centerY - radius + 4.0f, Neon::MAGENTA, 2.0f);
 	Neon::DrawGlowLine(centerX, centerY + radius - 4.0f, centerX, centerY + radius + 8.0f, Neon::MAGENTA, 2.0f);
 	DrawCircleAA(centerX, centerY, 2.0f, 16, GetColor(255, 255, 255), TRUE);
+}
+
+void Gun::ShootOne(Vector2 aimDirection, Vector2 shootPos)
+{
+	for (size_t i = 0; i < m_magazine.size(); i++)
+	{
+		if (m_magazine[i].isActive) continue;
+
+		//マガジンの中の非アクティブ状態の弾を撃てる状態にする
+		m_magazine[i].position.x = shootPos.x;
+		m_magazine[i].position.y = shootPos.y;
+
+		if (aimDirection.x == 0.0f &&
+			aimDirection.y == 0.0f)
+			return;
+
+		m_magazine[i].direction.x = aimDirection.x;
+		m_magazine[i].direction.y = aimDirection.y;
+
+		m_magazine[i].isActive = true;
+	}
+}
+
+void Gun::ShootRadial(Vector2 aimDirection, Vector2 shootPos)
+{
+	int activateBulletCount = 0;
+	for (size_t i = 0; i < m_magazine.size(); i++)
+	{
+		if (m_magazine[i].isActive) continue;
+
+		Vector2 shootDirection = {};
+
+		//マガジンの中の非アクティブ状態の弾を撃てる状態にする
+		m_magazine[i].position.x = shootPos.x;
+		m_magazine[i].position.y = shootPos.y;
+
+		if (aimDirection.x == 0.0f &&
+			aimDirection.y == 0.0f)
+			return;
+
+		m_magazine[i].direction.x = aimDirection.x;
+		m_magazine[i].direction.y = aimDirection.y;
+
+		m_magazine[i].isActive = true;
+		activateBulletCount++;
+
+		if (activateBulletCount == SPLASH_DIRECTION_COUNT) break;
+	}
 }

@@ -22,7 +22,7 @@ void Player::InitializePlayer()
 	m_hitPoint.Initialize(MAX_HP);
 	m_invincibleTimer = 0;
 
-	m_gun.InitializeGun(BULLET_COUNT);
+	m_gun.InitializeGun(BULLET_COUNT, Gun::ShotPettern::Single);
 	m_playerObj = { { m_playerPosX,m_playerPosY },m_playerW,m_playerH};
 };
 

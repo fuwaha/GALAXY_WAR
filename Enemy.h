@@ -48,15 +48,16 @@ public:
 private:
 	GameObject m_enemyObj;
 
+	//敵の構造体
 	struct EnemyParam
 	{
-		int maxHp;
-		float moveSpeed;
-		float drawRadius;
-		int destroyScore;
-		NeonColor color;
-		float shootInterval; //秒
-		int bulletCount;
+		int maxHp;           //体力
+		float moveSpeed;     //動く速さ
+		float drawRadius;    //大きさ
+		int destroyScore;    //倒したときに貰えるスコア
+		NeonColor color;     //色
+		float shootInterval; //弾を撃つインターバル(秒)
+		int bulletCount;     //弾数
 	};
 
 	EnemyType m_enemyType = EnemyType::Common;
@@ -115,20 +116,12 @@ private:
 	int m_enemyW;
 	int m_enemyH;
 
-	//この敵を倒した時にもらえるスコア
-	static const int DESTROY_SCORE = 100;
-
-	static constexpr float MOVE_SPEED = 2.0f;
-
-	//HPのインスタンスと最大値の設定
+	//HPのインスタンス
 	HitPoint m_hitPoint;
-	static const int MAX_HP = 2;
 
 	//弾を発射する銃
 	Gun m_gun;
-	static const int BULLET_COUNT = 3; //弾数
 	int m_shootTimer = 0;              //インターバル用のタイマー
-	static const int SHOOT_TIME = 60;  //弾発射のインターバル
 
 	//攻撃を受けた時の点滅(プレイヤーには無敵時間があるけど、敵には無し)
 	int m_flashTimer = 0;
